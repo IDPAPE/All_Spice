@@ -34,4 +34,9 @@ public class RecipesService
         return recipe;
 
     }
+
+    internal Recipe UpdateRecipe(Recipe recipeData, int recipeId, string userId)
+    {
+        throw new NotImplementedException(); //FIXME This is where I left off
+    }
 }

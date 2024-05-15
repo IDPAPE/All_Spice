@@ -1,3 +1,5 @@
+using Microsoft.Extensions.Configuration.UserSecrets;
+
 namespace All_Spice.Controllers;
 
 [ApiController]
@@ -50,5 +52,23 @@ public class RecipesController : ControllerBase
     {
         Recipe recipe = _recipesService.GetRecipeById(recipeId);
         return Ok(recipe);
+    }
+
+    [Authorize]
+    [HttpPut("{recipeId}")]
+    public async Task<ActionResult<Recipe>> UpdateRecipe([FromBody] Recipe recipeData, int recipeId)
+    {
+        try
+        {
+            Account userInfo = await _auth0Provider.GetUserInfoAsync<Account>(HttpContext);
+            string userId = userInfo.Id;
+            Recipe recipe = _recipesService.UpdateRecipe(recipeData, recipeId, userId);
+            return Ok(recipe);
+        }
+        catch (Exception exception)
+        {
+            return BadRequest(exception.Message);
+        }
+
     }
 }
