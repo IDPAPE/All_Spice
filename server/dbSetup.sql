@@ -1,3 +1,4 @@
+-- Active: 1715717093297@@127.0.0.1@3306@motivated_shaman_b691c0_db
 CREATE TABLE IF NOT EXISTS accounts (
     id VARCHAR(255) NOT NULL primary key COMMENT 'primary key',
     createdAt DATETIME DEFAULT CURRENT_TIMESTAMP COMMENT 'Time Created',
@@ -65,3 +66,18 @@ FROM recipes
     JOIN accounts ON accounts.id = recipes.creatorId
 WHERE
     recipes.id = @recipeId;
+
+UPDATE recipes
+SET
+    title = @Title,
+    instructions = @Instructions,
+    img = @Img,
+    category = @category,
+WHERE
+    id = @id;
+
+SELECT recipes.*, accounts.*
+FROM recipes
+    JOIN accounts ON accounts.id = recipes.creatorId
+WHERE
+    recipes.creatorId = @id;

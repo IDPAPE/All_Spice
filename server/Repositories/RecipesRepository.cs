@@ -1,6 +1,8 @@
 
 
 
+
+
 namespace All_Spice.Repositories;
 
 public class RecipesRepository
@@ -64,5 +66,36 @@ VALUES (
     {
         recipe.Creator = profile;
         return recipe;
+    }
+
+    internal Recipe UpdateRecipe(Recipe recipeToUpdate)
+    {
+        string sql = @"
+        UPDATE recipes SET
+        title = @Title,
+        instructions = @Instructions,
+        img = @Img,
+        category = @category
+        WHERE id = @id;
+
+        SELECT recipes.*, accounts.* FROM recipes
+        JOIN accounts ON accounts.id = recipes.creatorId
+        WHERE recipes.id = @id;";
+
+        Recipe updatedRecipe = _db.Query<Recipe, Profile, Recipe>(sql, PopulateCreator, recipeToUpdate).FirstOrDefault();
+
+        return updatedRecipe;
+    }
+
+    internal string DeleteRecipe(Recipe recipeToDelete)
+    {
+        string sql = "DELETE FROM recipes WHERE recipes.id = @id;";
+
+        int rowsAffected = _db.Execute(sql, recipeToDelete);
+        if (rowsAffected != 1)
+        {
+            throw new Exception("something bad happened");
+        }
+        return "Deleted succesfully";
     }
 }

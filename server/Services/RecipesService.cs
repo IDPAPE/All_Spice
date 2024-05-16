@@ -18,6 +18,7 @@ public class RecipesService
         return recipe;
     }
 
+
     internal List<Recipe> GetAllRecipes()
     {
         List<Recipe> recipes = _repository.GetAllRecipes();
@@ -37,6 +38,28 @@ public class RecipesService
 
     internal Recipe UpdateRecipe(Recipe recipeData, int recipeId, string userId)
     {
-        throw new NotImplementedException(); //FIXME This is where I left off
+        Recipe recipeToUpdate = _repository.GetRecipeById(recipeId);
+        if (recipeToUpdate.CreatorId != userId)
+        {
+            throw new Exception($"cannot update recipe with id: {recipeToUpdate.Id}, not yours");
+        }
+        recipeToUpdate.Title = recipeData.Title ?? recipeToUpdate.Title;
+        recipeToUpdate.Instructions = recipeData.Instructions ?? recipeToUpdate.Instructions;
+        recipeToUpdate.Img = recipeData.Img ?? recipeToUpdate.Img;
+        recipeToUpdate.Category = recipeData.Category ?? recipeToUpdate.Category;
+
+        Recipe updatedRecipe = _repository.UpdateRecipe(recipeToUpdate);
+        return updatedRecipe;
+    }
+
+    internal string DeleteRecipe(int recipeId, string userId)
+    {
+        Recipe recipeToDelete = GetRecipeById(recipeId);
+        if (recipeToDelete.CreatorId != userId)
+        {
+            throw new Exception($"cannot delete recipe with id: {recipeToDelete.Id}, not yours");
+        }
+        string Message = _repository.DeleteRecipe(recipeToDelete);
+        return Message;
     }
 }
