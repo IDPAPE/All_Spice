@@ -55,6 +55,17 @@ VALUES (
         "662817f2fd45638b4a31d74d"
     );
 
+DROP TABLE favorites;
+
+CREATE TABLE favorites (
+    id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    createdAt DATETIME DEFAULT CURRENT_TIMESTAMP COMMENT 'Time Created',
+    updatedAt DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT 'Last Update',
+    recipeId INT NOT NULL,
+    creatorId VARCHAR(255) NOT NULL,
+    FOREIGN KEY (creatorId) REFERENCES accounts (id) ON DELETE CASCADE
+)
+
 SELECT recipes.*, accounts.*
 FROM recipes
     JOIN accounts ON recipes.creatorId = accounts.id
