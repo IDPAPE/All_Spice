@@ -1,5 +1,7 @@
 
 
+
+
 namespace All_Spice.Repositories;
 
 public class FavoritesRepository
@@ -14,6 +16,15 @@ public class FavoritesRepository
     internal Favorite PopulateCreator(Favorite favorite, Profile profile)
     {
         favorite.Creator = profile;
+        return favorite;
+    }
+
+    internal Favorite GetMyFavoriteRecipesById(int favoriteId)
+    {
+        string sql = @"
+        SELECT * FROM favorites WHERE id = @favoriteId;
+        ";
+        Favorite favorite = _db.Query<Favorite>(sql, new { favoriteId }).FirstOrDefault();
         return favorite;
     }
     internal FavoriteRecipe CreateFavorite(Favorite favoriteData)
@@ -68,5 +79,12 @@ public class FavoritesRepository
             return recipe;
         }, new { userId }).ToList();
         return myFavorites;
+    }
+
+    internal void DeleteFavorite(int favoriteId)
+    {
+        string sql = @"DELETE FROM favorites WHERE favorites.id = @favoriteId;";
+
+        _db.Execute(sql, new { favoriteId });
     }
 }
