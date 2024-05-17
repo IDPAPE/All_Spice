@@ -2,15 +2,28 @@
 import { computed } from 'vue';
 import { Recipe } from '../models/Recipe.js';
 import { FavoriteRecipe } from '../models/FavoriteRecipe.js';
+import Pop from '../utils/Pop.js';
+import { recipesService } from '../services/RecipesService.js';
 
 
 const props = defineProps({ recipe: { type: Recipe, required: true } })
 const bgImg = computed(() => `url(${props.recipe.img})`)
+
+function setActiveRecipe(recipeId) {
+    try {
+        recipesService.setActiveRecipe(recipeId)
+    }
+    catch (error) {
+        Pop.toast('could not set active recipe', 'error');
+        console.error(error)
+    }
+}
 </script>
 
 
 <template>
-    <div class="card bg-primary container-fluid d-flex text-light">
+    <div @click="setActiveRecipe(recipe.id)" data-bs-toggle="modal" data-bs-target="#recipeModal"
+        class="card bg-primary container-fluid d-flex text-light selectable">
         <div class="row">
             <div class="col-5 bg-glass m-1 rounded text-center">
                 <h5 class="">{{ recipe.category }}</h5>

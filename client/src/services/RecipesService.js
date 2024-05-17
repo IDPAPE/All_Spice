@@ -3,6 +3,11 @@ import { Recipe } from "../models/Recipe.js"
 import { api } from "./AxiosService.js"
 
 class RecipesService{
+    setActiveRecipe(recipeId) {
+        const activeRecipe = AppState.allRecipes.find(recipe => recipe.id == recipeId)
+        AppState.activeRecipe = activeRecipe
+        console.log(AppState.activeRecipe)
+    }
     showMyFavorites() {
       if(AppState.account != null){
         AppState.activeRecipes = AppState.myFavoriteRecipes

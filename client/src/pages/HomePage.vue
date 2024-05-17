@@ -88,6 +88,9 @@ onMounted(() => {
         <h5>My Favorites</h5>
       </div>
     </div>
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#recipeModal">
+      Launch recipe modal
+    </button>
 
     <div class="row px-3">
       <div v-for="recipe in activeRecipes" :key="recipe.id" class="col-3 p-3">
@@ -95,6 +98,7 @@ onMounted(() => {
       </div>
     </div>
   </div>
+  <RecipeModal />
 </template>
 
 <style scoped lang="scss">
