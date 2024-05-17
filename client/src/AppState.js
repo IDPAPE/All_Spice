@@ -9,5 +9,8 @@ export const AppState = reactive({
   account: null,
 
   /** @type {Recipe[]} */
-  allRecipes: []
+  allRecipes: [],
+
+  /** @type {Recipe[]} */
+  activeRecipes: [],
 })
