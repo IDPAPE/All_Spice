@@ -14,8 +14,19 @@ public class IngredientsService
         _recipesService = recipesService;
     }
 
-    internal Ingredient CreateIngredient(Ingredient ingredientData)
+    // internal Ingredient CreateIngredient(Ingredient ingredientData, string userId)
+    // {
+    //     Ingredient ingredient = _repository.CreateIngredient(ingredientData);
+    //     return ingredient;
+    // }
+
+    internal Ingredient CreateIngredient(Ingredient ingredientData, string userId)
     {
+        Recipe ingredientRecipe = _recipesService.GetRecipeById(ingredientData.RecipeId);
+        if (ingredientRecipe.CreatorId != userId)
+        {
+            throw new Exception($"you cannot create an ingredient on a recipe you do not own");
+        }
         Ingredient ingredient = _repository.CreateIngredient(ingredientData);
         return ingredient;
     }

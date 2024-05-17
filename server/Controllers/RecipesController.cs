@@ -53,8 +53,16 @@ public class RecipesController : ControllerBase
     [HttpGet("{recipeId}")]
     public ActionResult<Recipe> GetRecipeById(int recipeId)
     {
-        Recipe recipe = _recipesService.GetRecipeById(recipeId);
-        return Ok(recipe);
+        try
+        {
+            Recipe recipe = _recipesService.GetRecipeById(recipeId);
+            return Ok(recipe);
+        }
+        catch (Exception exception)
+        {
+            return BadRequest(exception.Message);
+        }
+
     }
 
     [Authorize]
