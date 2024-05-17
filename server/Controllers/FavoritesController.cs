@@ -1,3 +1,5 @@
+using Microsoft.AspNetCore.Authentication.OpenIdConnect;
+
 namespace All_Spice.Controllers;
 
 [ApiController]
@@ -16,7 +18,7 @@ public class FavoritesController : ControllerBase
 
     [Authorize]
     [HttpPost]
-    public async Task<ActionResult<Favorite>> CreateFavorite([FromBody] Favorite favoriteData)
+    public async Task<ActionResult<FavoriteRecipe>> CreateFavorite([FromBody] Favorite favoriteData)
     {
         try
         {
