@@ -3,6 +3,18 @@ import { Recipe } from "../models/Recipe.js"
 import { api } from "./AxiosService.js"
 
 class RecipesService{
+    showMyFavorites() {
+      if(AppState.account != null){
+        AppState.activeRecipes = AppState.myFavoriteRecipes
+      }
+    }
+    showMyRecipes() {
+    if(AppState.account != null)
+        {
+      const myRecipes = AppState.allRecipes.filter(recipe => recipe.creatorId == AppState.account.id)
+      AppState.activeRecipes = myRecipes
+        }
+    }
     showAllRecipes() {
         AppState.activeRecipes = AppState.allRecipes
     }
@@ -12,6 +24,7 @@ class RecipesService{
         const recipes = response.data.map(recipe => new Recipe(recipe))
         AppState.allRecipes = recipes
         AppState.activeRecipes = recipes
+        console.log('Appstate recipes', AppState.allRecipes)
     }
 }
 

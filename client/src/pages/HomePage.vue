@@ -4,6 +4,7 @@ import RecipeCard from '../components/RecipeCard.vue';
 import { recipesService } from '../services/RecipesService.js';
 import Pop from '../utils/Pop.js';
 import { AppState } from '../AppState.js';
+import { favoritesService } from '../services/FavoritesService.js';
 
 const activeRecipes = computed(() => AppState.activeRecipes)
 
@@ -17,12 +18,42 @@ async function getAllRecipes() {
   }
 }
 
+async function getMyFavorites() {
+  try {
+    await favoritesService.getMyFavorites()
+  }
+  catch (error) {
+    Pop.toast('could not get your favorites', 'error');
+    console.error(error)
+  }
+}
+
 function showAllRecipes() {
   try {
     recipesService.showAllRecipes()
   }
   catch (error) {
     Pop.toast('could not show all recipes', 'error');
+    console.error(error)
+  }
+}
+
+function showMyRecipes() {
+  try {
+    recipesService.showMyRecipes()
+  }
+  catch (error) {
+    Pop.toast('could not show your recipes', 'error');
+    console.error(error)
+  }
+}
+
+function showMyFavorites() {
+  try {
+    recipesService.showMyFavorites()
+  }
+  catch (error) {
+    Pop.toast('could not show favorites', 'error');
     console.error(error)
   }
 }
@@ -69,9 +100,5 @@ onMounted(() => {
 <style scoped lang="scss">
 .hero-img {
   height: 20dvh;
-}
-
-.floating-buttons {
-  transform: translate(0dvh, -4dvh);
 }
 </style>

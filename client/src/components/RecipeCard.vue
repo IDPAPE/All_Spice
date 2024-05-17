@@ -1,6 +1,7 @@
 <script setup>
 import { computed } from 'vue';
 import { Recipe } from '../models/Recipe.js';
+import { FavoriteRecipe } from '../models/FavoriteRecipe.js';
 
 
 const props = defineProps({ recipe: { type: Recipe, required: true } })
