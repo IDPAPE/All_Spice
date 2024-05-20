@@ -46,7 +46,7 @@ onMounted(() => {
                         </div>
                         <div class="row">
                             <div class="col">
-
+                                {{ activeRecipe.instructions }}
                             </div>
                         </div>
                     </div>
@@ -57,9 +57,9 @@ onMounted(() => {
                         <div class="row" v-if="activeIngredients">
                             <div class="col" v-for="ingredient in activeIngredients" :key="ingredient.id">
                                 <div>
-                                    <h5>{{ ingredient.id }}.</h5>
-                                    <p>{{ ingredient.quantity }}</p>
-                                    <p>{{ ingredient.name }}</p>
+                                    <span class="fw-bold">{{ ingredient.id }}.</span>
+                                    <span class="ms-1">{{ ingredient.quantity }}</span>
+                                    <span class="ms-1">{{ ingredient.name }}</span>
                                 </div>
                             </div>
                         </div>

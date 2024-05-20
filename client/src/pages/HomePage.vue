@@ -94,6 +94,11 @@ onMounted(() => {
     </button> -->
 
     <div class="row px-3">
+      <div class="col-3 p-3">
+        <div class="card bg-success container-fluid d-flex text-light selectable">
+          <h1><i class="mdi mdi-plus"></i>Post A Recipe</h1>
+        </div>
+      </div>
       <div v-for="recipe in activeRecipes" :key="recipe.id" class="col-3 p-3">
         <RecipeCard :recipe="recipe" />
       </div>
@@ -105,5 +110,9 @@ onMounted(() => {
 <style scoped lang="scss">
 .hero-img {
   height: 20dvh;
+}
+
+.card {
+  height: 25dvh;
 }
 </style>
