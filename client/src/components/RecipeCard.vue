@@ -4,6 +4,7 @@ import { Recipe } from '../models/Recipe.js';
 import { FavoriteRecipe } from '../models/FavoriteRecipe.js';
 import Pop from '../utils/Pop.js';
 import { recipesService } from '../services/RecipesService.js';
+import { ingredientsService } from '../services/IngredientsService.js';
 
 
 const props = defineProps({ recipe: { type: Recipe, required: true } })
@@ -12,6 +13,7 @@ const bgImg = computed(() => `url(${props.recipe.img})`)
 function setActiveRecipe(recipeId) {
     try {
         recipesService.setActiveRecipe(recipeId)
+        ingredientsService.getActiveIngredients(recipeId)
     }
     catch (error) {
         Pop.toast('could not set active recipe', 'error');

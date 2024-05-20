@@ -1,11 +1,15 @@
 <script setup>
-import { computed } from 'vue';
+import { computed, onMounted, onUnmounted } from 'vue';
 import { AppState } from '../AppState.js';
 import RecipeModalContent from './RecipeModalContent.vue';
+import { Modal } from 'bootstrap';
 
 
 const activeRecipe = computed(() => AppState.activeRecipe)
 
+onUnmounted(() => {
+    Modal.getOrCreateInstance('#recipeModal').hide()
+})
 </script>
 
 
@@ -18,7 +22,7 @@ const activeRecipe = computed(() => AppState.activeRecipe)
                     <h1 class="modal-title fs-5" id="recipeModalLabel">Modal title</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="modal-body">
+                <div class="modal-body " v-if="AppState.activeRecipe">
                     <RecipeModalContent />
                 </div>
                 <div class="modal-footer">

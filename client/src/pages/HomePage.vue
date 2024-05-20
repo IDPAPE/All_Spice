@@ -1,5 +1,6 @@
+-- Active: 1715717093297@@127.0.0.1@3306@motivated_shaman_b691c0_db
 <script setup>
-import { computed, onMounted } from 'vue';
+import { computed, onBeforeMount, onMounted } from 'vue';
 import RecipeCard from '../components/RecipeCard.vue';
 import { recipesService } from '../services/RecipesService.js';
 import Pop from '../utils/Pop.js';
@@ -88,9 +89,9 @@ onMounted(() => {
         <h5>My Favorites</h5>
       </div>
     </div>
-    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#recipeModal">
+    <!-- <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#recipeModal">
       Launch recipe modal
-    </button>
+    </button> -->
 
     <div class="row px-3">
       <div v-for="recipe in activeRecipes" :key="recipe.id" class="col-3 p-3">
