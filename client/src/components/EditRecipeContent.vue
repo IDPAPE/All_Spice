@@ -67,10 +67,12 @@ async function deleteIngredient(ingredientId) {
                 <section class="row">
                     <div class="col">
                         <h2>
-                            <input v-model="recipeFormData.title" type="text" class="w-75"> <button
-                                class="btn btn-primary rounded-pill ms-2">{{
-                                    activeRecipe.category
-                                }}</button>
+                            <div class="input-group">
+                                <input v-model="recipeFormData.title" type="text" class="w-75">
+                                <button class="btn btn-success border border-dark">Update Title</button>
+                            </div>
+                            <button class="btn btn-primary rounded-pill ms-2">
+                                {{ activeRecipe.category }}</button>
                         </h2>
                     </div>
                 </section>
@@ -86,7 +88,8 @@ async function deleteIngredient(ingredientId) {
                                         id="instructions" rows="15" class="w-100"
                                         :placeholder="activeRecipe.instructions"></textarea>
                                     <!-- {{ activeRecipe.instructions }} -->
-                                    <button type="submit" class="btn btn-success mb-2">Save Instructions</button>
+                                    <button type="submit" class="btn btn-success border border-dark mb-2">Update
+                                        Instructions</button>
                                 </form>
                             </div>
                         </div>
@@ -122,8 +125,8 @@ async function deleteIngredient(ingredientId) {
                                             minlength="2" maxlength="50">
                                         <label for="ingredient">Ingredient</label>
                                     </div>
-                                    <button class="btn btn-success text-dark btn-outline-dark" type="submit"
-                                        id="button-addon2"><i class="mdi mdi-plus"></i></button>
+                                    <button class="btn btn-success btn-outline-dark" type="submit" id="button-addon2"><i
+                                            class="mdi mdi-plus"></i></button>
                                 </div>
                             </form>
                         </div>

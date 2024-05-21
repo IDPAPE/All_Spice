@@ -8,6 +8,8 @@ class RecipesService{
         console.log(response.data)
         const updatedRecipe = new Recipe(response.data)
         AppState.activeRecipe = updatedRecipe
+        const indexToChange = AppState.activeRecipes.findIndex(recipe=> recipe.id == AppState.activeRecipe.id)
+        AppState.activeRecipes[indexToChange] = updatedRecipe
     }
     changeViewMode(mode) {
       AppState.viewingMode = mode
