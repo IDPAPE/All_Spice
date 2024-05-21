@@ -12,7 +12,7 @@ const activeIngredients = computed(() => AppState.activeIngredients)
     <div class="container-fluid">
         <section class="row">
             <div class="col-4">
-                <img :src="activeRecipe.img" alt="" class="w-100">
+                <img :src="activeRecipe.img" alt="" class="img">
             </div>
             <div class="col-8">
                 <section class="row">
@@ -38,11 +38,11 @@ const activeIngredients = computed(() => AppState.activeIngredients)
                         <div class="row">
                             <h3>Ingredients</h3>
                         </div>
-                        <div class="row" v-if="activeIngredients">
-                            <div class="col" v-for="ingredient in activeIngredients" :key="ingredient.id">
-                                <div>
-                                    <span class="fw-bold">{{ ingredient.id }}.</span>
-                                    <span class="ms-1">{{ ingredient.quantity }}</span>
+                        <div v-if="activeIngredients" class="container-fluid">
+                            <div class="row" v-for="ingredient in activeIngredients" :key="ingredient.id">
+                                <div class="col">
+                                    <!-- <span class="fw-bold">{{ ingredient.index }}.</span> -->
+                                    <span class="ms-1">{{ ingredient.quantity }}:</span>
                                     <span class="ms-1">{{ ingredient.name }}</span>
                                     <hr class="m-0 mb-1" />
                                 </div>
@@ -58,6 +58,9 @@ const activeIngredients = computed(() => AppState.activeIngredients)
 
 <style lang="scss" scoped>
 .img {
-    object-fit: contain;
+    height: 50dvh;
+    width: 100%;
+    object-fit: cover;
+    object-position: center;
 }
 </style>
