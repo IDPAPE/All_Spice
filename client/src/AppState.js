@@ -24,4 +24,7 @@ export const AppState = reactive({
 
   /** @type {Ingredient[]} */
   activeIngredients: [],
+
+  /**@type {string} */
+  viewingMode: 'viewing',
 })

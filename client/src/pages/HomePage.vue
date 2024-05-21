@@ -6,8 +6,10 @@ import { recipesService } from '../services/RecipesService.js';
 import Pop from '../utils/Pop.js';
 import { AppState } from '../AppState.js';
 import { favoritesService } from '../services/FavoritesService.js';
+import EditRecipeContent from '../components/EditRecipeContent.vue';
 
 const activeRecipes = computed(() => AppState.activeRecipes)
+const viewingMode = computed(() => AppState.viewingMode)
 
 async function getAllRecipes() {
   try {
@@ -117,7 +119,8 @@ onMounted(() => {
     </div>
   </div>
   <RecipeModal>
-    <RecipeModalContent />
+    <RecipeModalContent v-if="viewingMode == 'viewing'" />
+    <EditRecipeContent v-if="viewingMode == 'editing'" />
   </RecipeModal>
 </template>
 

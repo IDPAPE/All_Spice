@@ -3,6 +3,10 @@ import { Recipe } from "../models/Recipe.js"
 import { api } from "./AxiosService.js"
 
 class RecipesService{
+    changeViewMode(mode) {
+      AppState.viewingMode = mode
+      console.log('new viewing mode:', AppState.viewingMode)
+    }
     setActiveRecipe(recipeId) {
         const activeRecipe = AppState.allRecipes.find(recipe => recipe.id == recipeId)
         AppState.activeRecipe = activeRecipe
