@@ -11,7 +11,8 @@ const ingredientFormData = ref({
     name: '',
     quantity: '',
 })
-const textAreaData = ref({
+const recipeFormData = ref({
+    title: `${activeRecipe.value.title}`,
     instructions: `${activeRecipe.value.instructions}`
 })
 
@@ -25,9 +26,20 @@ async function changeViewMode(mode) {
     }
 }
 
+async function updateRecipe() {
+    try {
+        await recipesService.updateRecipe(recipeFormData.value)
+        Pop.success('updated successfully')
+    }
+    catch (error) {
+        Pop.error(error);
+    }
+}
+
 async function postIngredient() {
     try {
         await ingredientsService.postIngredient(ingredientFormData.value)
+        ingredientFormData.value = { name: '', quantity: '' }
     }
     catch (error) {
         Pop.error(error);
@@ -54,8 +66,10 @@ async function deleteIngredient(ingredientId) {
             <div class="col-8">
                 <section class="row">
                     <div class="col">
-                        <h2>{{ activeRecipe.title }}<button class="btn btn-primary rounded-pill ms-2">{{
-                            activeRecipe.category
+                        <h2>
+                            <input v-model="recipeFormData.title" type="text" class="w-75"> <button
+                                class="btn btn-primary rounded-pill ms-2">{{
+                                    activeRecipe.category
                                 }}</button>
                         </h2>
                     </div>
@@ -67,10 +81,13 @@ async function deleteIngredient(ingredientId) {
                         </div>
                         <div class="row">
                             <div class="col text-end">
-                                <textarea v-model="textAreaData.instructions" name="instructions" id="instructions"
-                                    rows="15" class="w-100" :placeholder="activeRecipe.instructions"></textarea>
-                                <!-- {{ activeRecipe.instructions }} -->
-                                <button class="btn btn-success mb-2">Save Instructions</button>
+                                <form @submit.prevent="updateRecipe()">
+                                    <textarea v-model="recipeFormData.instructions" name="instructions"
+                                        id="instructions" rows="15" class="w-100"
+                                        :placeholder="activeRecipe.instructions"></textarea>
+                                    <!-- {{ activeRecipe.instructions }} -->
+                                    <button type="submit" class="btn btn-success mb-2">Save Instructions</button>
+                                </form>
                             </div>
                         </div>
                     </div>
@@ -90,20 +107,22 @@ async function deleteIngredient(ingredientId) {
                                 </div>
                             </div>
                         </div>
-                        <div class="row">
+                        <div class="row mt-2">
                             <form @submit.prevent="postIngredient()">
                                 <div class="input-group">
                                     <div class="form-floating">
                                         <input v-model="ingredientFormData.quantity" type="text" aria-label="Quantity"
-                                            id="quantity" class="form-control border border-dark">
+                                            id="quantity" class="form-control border border-dark" required minlength="1"
+                                            maxlength="50">
                                         <label for="quantity">Quantity</label>
                                     </div>
                                     <div class="form-floating">
                                         <input v-model="ingredientFormData.name" type="text" aria-label="Ingredient"
-                                            id="ingredient" class="form-control border border-dark">
+                                            id="ingredient" class="form-control border border-dark" required
+                                            minlength="2" maxlength="50">
                                         <label for="ingredient">Ingredient</label>
                                     </div>
-                                    <button class="btn btn-success text-light btn-outline-dark" type="submit"
+                                    <button class="btn btn-success text-dark btn-outline-dark" type="submit"
                                         id="button-addon2"><i class="mdi mdi-plus"></i></button>
                                 </div>
                             </form>

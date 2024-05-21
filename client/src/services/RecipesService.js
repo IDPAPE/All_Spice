@@ -3,6 +3,12 @@ import { Recipe } from "../models/Recipe.js"
 import { api } from "./AxiosService.js"
 
 class RecipesService{
+    async updateRecipe(recipeData) {
+        const response = await api.put(`api/recipes/${AppState.activeRecipe.id}`,recipeData)
+        console.log(response.data)
+        const updatedRecipe = new Recipe(response.data)
+        AppState.activeRecipe = updatedRecipe
+    }
     changeViewMode(mode) {
       AppState.viewingMode = mode
       console.log('new viewing mode:', AppState.viewingMode)
