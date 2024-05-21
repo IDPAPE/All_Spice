@@ -95,8 +95,20 @@ onMounted(() => {
 
     <div class="row px-3">
       <div class="col-3 p-3">
-        <div class="card bg-success container-fluid d-flex text-light selectable">
-          <h1><i class="mdi mdi-plus"></i>Post A Recipe</h1>
+        <div class="card bg-success container-fluid d-flex text-light selectable text-center">
+          <section class="row mt-2">
+            <div class="col">
+              <h1>Add a Recipe</h1>
+            </div>
+          </section>
+          <section class="row flex-grow-1">
+
+          </section>
+          <section class="row">
+            <div class="col">
+              <i class="big-plus">+</i>
+            </div>
+          </section>
         </div>
       </div>
       <div v-for="recipe in activeRecipes" :key="recipe.id" class="col-3 p-3">
@@ -104,7 +116,9 @@ onMounted(() => {
       </div>
     </div>
   </div>
-  <RecipeModal />
+  <RecipeModal>
+    <RecipeModalContent />
+  </RecipeModal>
 </template>
 
 <style scoped lang="scss">
@@ -114,5 +128,10 @@ onMounted(() => {
 
 .card {
   height: 25dvh;
+}
+
+.big-plus {
+  font-weight: bold;
+  font-size: 100px;
 }
 </style>

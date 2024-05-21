@@ -6,6 +6,7 @@ import { Modal } from 'bootstrap';
 
 
 const activeRecipe = computed(() => AppState.activeRecipe)
+const account = computed(() => AppState.account)
 
 onUnmounted(() => {
     Modal.getOrCreateInstance('#recipeModal').hide()
@@ -23,11 +24,12 @@ onUnmounted(() => {
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body " v-if="AppState.activeRecipe">
-                    <RecipeModalContent />
+                    <slot></slot>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
+                <div class="modal-footer" v-if="AppState.activeRecipe && activeRecipe.creatorId == account?.id">
+                    <button type="button" class="btn btn-danger"><i class="mdi mdi-heart"></i></button>
+                    <button type="button" class="btn btn-success">Edit Recipe</button>
+                    <button type="button" class="btn btn-danger">Delete Recipe</button>
                 </div>
             </div>
         </div>

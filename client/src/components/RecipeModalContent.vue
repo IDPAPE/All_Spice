@@ -1,26 +1,10 @@
 <script setup>
 import { computed, onMounted, ref } from 'vue';
 import { AppState } from '../AppState.js';
-import { Recipe } from '../models/Recipe.js';
-import Pop from '../utils/Pop.js';
-import { ingredientsService } from '../services/IngredientsService.js';
-
 
 const activeRecipe = computed(() => AppState.activeRecipe)
 const activeIngredients = computed(() => AppState.activeIngredients)
 
-async function getActiveIngredients() {
-    try {
-        ingredientsService.getActiveIngredients()
-    }
-    catch (error) {
-        Pop.error(error);
-    }
-}
-
-onMounted(() => {
-    getActiveIngredients()
-})
 </script>
 
 
@@ -40,7 +24,7 @@ onMounted(() => {
                     </div>
                 </section>
                 <section class="row">
-                    <div class="col-6">
+                    <div class="col border rounded me-2">
                         <div class="row">
                             <h3>Recipe Instructions</h3>
                         </div>
@@ -50,7 +34,7 @@ onMounted(() => {
                             </div>
                         </div>
                     </div>
-                    <div class="col-6">
+                    <div class="col border rounded ms-2">
                         <div class="row">
                             <h3>Ingredients</h3>
                         </div>
@@ -60,6 +44,7 @@ onMounted(() => {
                                     <span class="fw-bold">{{ ingredient.id }}.</span>
                                     <span class="ms-1">{{ ingredient.quantity }}</span>
                                     <span class="ms-1">{{ ingredient.name }}</span>
+                                    <hr class="m-0 mb-1" />
                                 </div>
                             </div>
                         </div>
